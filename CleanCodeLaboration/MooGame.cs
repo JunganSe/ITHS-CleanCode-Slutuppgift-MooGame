@@ -10,7 +10,7 @@ public class MooGame
 
         while (playOn)
         {
-            string goal = makeGoal();
+            string goal = GenerateTargetDigits();
 
             Console.WriteLine("New game:\n");
             //comment out or remove next line to play real games!
@@ -41,7 +41,7 @@ public class MooGame
         }
     }
 
-    public static string makeGoal()
+    public static string GenerateTargetDigits()
     {
         Random randomGenerator = new Random();
         string goal = "";

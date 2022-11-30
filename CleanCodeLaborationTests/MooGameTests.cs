@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text.RegularExpressions;
 
 namespace CleanCodeLaboration.Tests;
 
@@ -6,8 +7,11 @@ namespace CleanCodeLaboration.Tests;
 public class MooGameTests
 {
     [TestMethod()]
-    public void MyTest()
+    public void GenerateTargetDigitsTest()
     {
-        Assert.Fail();
+        string output = MooGame.GenerateTargetDigits();
+
+        Assert.IsTrue(output.Length == 4);
+        StringAssert.Matches(output, new Regex("^(?:([0-9])(?!.*\\1))*$")); // Only unique digits.
     }
 }
