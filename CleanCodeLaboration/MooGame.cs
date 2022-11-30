@@ -1,6 +1,6 @@
 ﻿namespace CleanCodeLaboration;
 
-internal class MooGame
+public class MooGame
 {
     public void Run()
     {
@@ -41,7 +41,7 @@ internal class MooGame
         }
     }
 
-    static string makeGoal()
+    public static string makeGoal()
     {
         Random randomGenerator = new Random();
         string goal = "";
@@ -59,7 +59,7 @@ internal class MooGame
         return goal;
     }
 
-    static string checkBC(string goal, string guess)
+    public static string checkBC(string goal, string guess)
     {
         int cows = 0, bulls = 0;
         guess += "    ";     // if player entered less than 4 chars
@@ -83,7 +83,7 @@ internal class MooGame
         return "BBBB".Substring(0, bulls) + "," + "CCCC".Substring(0, cows);
     }
 
-    static void showTopList()
+    public static void showTopList()
     {
         StreamReader input = new StreamReader("result.txt");
         List<PlayerData> results = new List<PlayerData>();
