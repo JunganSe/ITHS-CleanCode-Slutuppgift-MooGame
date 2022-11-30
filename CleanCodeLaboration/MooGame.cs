@@ -2,6 +2,8 @@
 
 public class MooGame
 {
+    private static readonly string _separator = "#&#";
+
     public void Run()
     {
         bool playOn = true;
@@ -74,53 +76,43 @@ public class MooGame
         return $"{correct},{close}";
     }
 
-    public static void ShowTopListOld()
-    {
-        StreamReader input = new StreamReader("result.txt");
-        List<PlayerData> results = new List<PlayerData>();
-        string line;
-        while ((line = input.ReadLine()) != null)
-        {
-            string[] nameAndScore = line.Split(new string[] { "#&#" }, StringSplitOptions.None);
-            string name = nameAndScore[0];
-            int guesses = Convert.ToInt32(nameAndScore[1]);
-            PlayerData pd = new PlayerData(name, guesses);
-            int pos = results.IndexOf(pd);
-            if (pos < 0)
-            {
-                results.Add(pd);
-            }
-            else
-            {
-                results[pos].Update(guesses);
-            }
-        }
-        results.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
-        Console.WriteLine("Player   games average");
-        foreach (PlayerData p in results)
-        {
-            Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", p.Name, p.NGames, p.Average()));
-        }
-        input.Close();
-    }
-
     public static void ShowTopList()
     {
         List<string> fileData = File.ReadAllLines("result.txt")?.ToList() ?? new();
         List<PlayerData> playerData = ParsePlayerData(fileData);
-        // TODO: Implement ordering.
-        //playerData = playerData.OrderBy(pd => pd.Average).ToList();
-        string output = GetPlayerDataAsString(playerData);
+        playerData = playerData.OrderBy(pd => pd.Average()).ToList();
+        string output = StringifyPlayerData(playerData);
         Console.WriteLine(output);
     }
 
-    public static List<PlayerData> ParsePlayerData(List<string> data)
+    public static List<PlayerData> ParsePlayerData(List<string> fileData)
     {
-        throw new NotImplementedException();
+        var entries = new List<KeyValuePair<string, int>>();
+        foreach (string line in fileData)
+        {
+            string[] nameAndGuesses = line.Split(_separator);
+            string name = nameAndGuesses[0];
+            int guesses = int.Parse(nameAndGuesses[1]);
+            entries.Add(new KeyValuePair<string, int>(name, guesses));
+        }
+
+        var playerData = new List<PlayerData>();
+        foreach (var entry in entries)
+        {
+            int index = playerData.FindIndex(pd => pd.Name == entry.Key);
+            if (index >= 0)
+                playerData[index].Update(entry.Value);
+            else
+                playerData.Add(new PlayerData(entry.Key, entry.Value));
+        }
+        return playerData;
     }
 
-    public static string GetPlayerDataAsString(List<PlayerData> playerData)
+    public static string StringifyPlayerData(List<PlayerData> playerData)
     {
-        throw new NotImplementedException();
+        string output = string.Format("{0,-9}{1,5:D}{2,9:F2}", "Player", "Games", "Average");
+        foreach (var pd in playerData)
+            output += string.Format("\n{0,-9}{1,5:D}{2,9:F2}", pd.Name, pd.NGames, pd.Average());
+        return output;
     }
 }
