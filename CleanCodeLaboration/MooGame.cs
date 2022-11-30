@@ -18,14 +18,14 @@ public class MooGame
             string guess = Console.ReadLine();
 
             int nGuess = 1;
-            string bbcc = checkBC(goal, guess);
+            string bbcc = GenerateClue(goal, guess);
             Console.WriteLine(bbcc + "\n");
             while (bbcc != "BBBB,")
             {
                 nGuess++;
                 guess = Console.ReadLine();
                 Console.WriteLine(guess + "\n");
-                bbcc = checkBC(goal, guess);
+                bbcc = GenerateClue(goal, guess);
                 Console.WriteLine(bbcc + "\n");
             }
             StreamWriter output = new StreamWriter("result.txt", append: true);
@@ -54,7 +54,7 @@ public class MooGame
         return output;
     }
 
-    public static string checkBC(string goal, string guess)
+    public static string GenerateClue(string goal, string guess)
     {
         int cows = 0, bulls = 0;
         guess += "    ";     // if player entered less than 4 chars
