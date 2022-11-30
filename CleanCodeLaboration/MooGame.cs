@@ -43,20 +43,15 @@ public class MooGame
 
     public static string GenerateTargetDigits()
     {
-        Random randomGenerator = new Random();
-        string goal = "";
-        for (int i = 0; i < 4; i++)
+        var random = new Random();
+        string output = "";
+        while (output.Length < 4)
         {
-            int random = randomGenerator.Next(10);
-            string randomDigit = "" + random;
-            while (goal.Contains(randomDigit))
-            {
-                random = randomGenerator.Next(10);
-                randomDigit = "" + random;
-            }
-            goal = goal + randomDigit;
+            string newDigit = random.Next(10).ToString();
+            if (!output.Contains(newDigit))
+                output += newDigit;
         }
-        return goal;
+        return output;
     }
 
     public static string checkBC(string goal, string guess)
