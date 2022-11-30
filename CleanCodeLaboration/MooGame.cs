@@ -80,7 +80,7 @@ public class MooGame
     {
         List<string> fileData = File.ReadAllLines("result.txt")?.ToList() ?? new();
         List<PlayerData> playerData = ParsePlayerData(fileData);
-        playerData = playerData.OrderBy(pd => pd.Average()).ToList();
+        playerData = playerData.OrderBy(pd => pd.Average).ToList();
         string output = StringifyPlayerData(playerData);
         Console.WriteLine(output);
     }
@@ -101,7 +101,7 @@ public class MooGame
         {
             int index = playerData.FindIndex(pd => pd.Name == entry.Key);
             if (index >= 0)
-                playerData[index].Update(entry.Value);
+                playerData[index].AddGameEntry(entry.Value);
             else
                 playerData.Add(new PlayerData(entry.Key, entry.Value));
         }
@@ -112,7 +112,7 @@ public class MooGame
     {
         string output = string.Format("{0,-9}{1,5:D}{2,9:F2}", "Player", "Games", "Average");
         foreach (var pd in playerData)
-            output += string.Format("\n{0,-9}{1,5:D}{2,9:F2}", pd.Name, pd.NGames, pd.Average());
+            output += string.Format("\n{0,-9}{1,5:D}{2,9:F2}", pd.Name, pd.NumberOfGames, pd.Average);
         return output;
     }
 }

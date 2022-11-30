@@ -2,38 +2,23 @@
 
 public class PlayerData
 {
+    private int _totalGuesses;
+
     public string Name { get; private set; }
-    public int NGames { get; private set; }
-    int totalGuess;
+    public int NumberOfGames { get; private set; }
+    public double Average { get { return (double)_totalGuesses / NumberOfGames; } }
 
 
     public PlayerData(string name, int guesses)
     {
-        this.Name = name;
-        NGames = 1;
-        totalGuess = guesses;
+        Name = name;
+        NumberOfGames = 1;
+        _totalGuesses = guesses;
     }
 
-    public void Update(int guesses)
+    public void AddGameEntry(int guesses)
     {
-        totalGuess += guesses;
-        NGames++;
-    }
-
-    public double Average()
-    {
-        return (double)totalGuess / NGames;
-    }
-
-
-    public override bool Equals(Object p)
-    {
-        return Name.Equals(((PlayerData)p).Name);
-    }
-
-
-    public override int GetHashCode()
-    {
-        return Name.GetHashCode();
+        _totalGuesses += guesses;
+        NumberOfGames++;
     }
 }
