@@ -31,7 +31,7 @@ public class MooGame
             StreamWriter output = new StreamWriter("result.txt", append: true);
             output.WriteLine(name + "#&#" + nGuess);
             output.Close();
-            showTopList();
+            ShowTopList();
             Console.WriteLine("Correct, it took " + nGuess + " guesses\nContinue?");
             string answer = Console.ReadLine();
             if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
@@ -74,7 +74,7 @@ public class MooGame
         return $"{correct},{close}";
     }
 
-    public static void showTopList()
+    public static void ShowTopListOld()
     {
         StreamReader input = new StreamReader("result.txt");
         List<PlayerData> results = new List<PlayerData>();
@@ -102,5 +102,25 @@ public class MooGame
             Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", p.Name, p.NGames, p.Average()));
         }
         input.Close();
+    }
+
+    public static void ShowTopList()
+    {
+        List<string> fileData = File.ReadAllLines("result.txt")?.ToList() ?? new();
+        List<PlayerData> playerData = ParsePlayerData(fileData);
+        // TODO: Implement ordering.
+        //playerData = playerData.OrderBy(pd => pd.Average).ToList();
+        string output = GetPlayerDataAsString(playerData);
+        Console.WriteLine(output);
+    }
+
+    public static List<PlayerData> ParsePlayerData(List<string> data)
+    {
+        throw new NotImplementedException();
+    }
+
+    public static string GetPlayerDataAsString(List<PlayerData> playerData)
+    {
+        throw new NotImplementedException();
     }
 }
