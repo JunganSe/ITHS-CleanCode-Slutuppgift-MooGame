@@ -110,9 +110,10 @@ public class MooGame
 
     public static string StringifyPlayerData(List<PlayerData> playerData)
     {
-        string output = string.Format("{0,-9}{1,5:D}{2,9:F2}", "Player", "Games", "Average");
+        string format = "{0,-9}{1,5:D}{2,9:F2}";
+        string output = string.Format(format, "Player", "Games", "Average");
         foreach (var pd in playerData)
-            output += string.Format("\n{0,-9}{1,5:D}{2,9:F2}", pd.Name, pd.NumberOfGames, pd.Average);
+            output += string.Format("\n" + format, pd.Name, pd.NumberOfGames, pd.Average);
         return output;
     }
 }
