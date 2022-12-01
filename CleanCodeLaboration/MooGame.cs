@@ -17,6 +17,7 @@ public class MooGame
         while (!Quit)
         {
             MainLoop();
+            Console.WriteLine("\nCorrect, it took " + GuessCount + " guesses.\n");
             HandleHighScore();
             Quit = AskToQuit();
         }
@@ -51,7 +52,6 @@ public class MooGame
 
     public static void HandleHighScore()
     {
-        Console.WriteLine("\nCorrect, it took " + GuessCount + " guesses.\n");
         ScoreHandler.AddEntryToFile(PlayerName, GuessCount, "result.txt");
         ShowTopList();
     }
