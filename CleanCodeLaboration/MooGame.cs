@@ -3,6 +3,8 @@
 public class MooGame
 {
     private static readonly string _separator = "#&#";
+    private static readonly char _correctLetter = 'B';
+    private static readonly char _closeLetter = 'C';
 
     public static string PlayerName { get; set; } = "";
     public static string Target { get; set; } = "";
@@ -91,11 +93,10 @@ public class MooGame
             if (target.Contains(guess[i]))
             {
                 if (guess[i] == target[i])
-                    correct += "B";
+                    correct += _correctLetter;
                 else
-                    close += "C";
+                    close += _closeLetter;
             }
-
         }
         return $"{correct},{close}";
     }
