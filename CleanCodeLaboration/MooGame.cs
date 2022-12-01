@@ -24,25 +24,25 @@ public class MooGame
     {
         Console.WriteLine("Enter your user name:");
         PlayerName = Console.ReadLine() ?? "Invalid name";
+        Target = GenerateTargetDigits();
+
+        Console.WriteLine("New game!");
+        Console.WriteLine($"For practice, number is: {Target}\n"); // Used for practice.
     }
 
     public static void MainLoop()
     {
-        string target = GenerateTargetDigits();
-
-        Console.WriteLine("New game!");
-        Console.WriteLine($"For practice, number is: {target}\n"); // Used for practice.
-
         string guess = Console.ReadLine() ?? "Invalid guess";
-
         GuessCount = 1;
-        string clue = GenerateClue(target, guess);
+
+        string clue = GenerateClue(Target, guess);
         Console.WriteLine(clue + "\n");
+
         while (clue != "BBBB,")
         {
             GuessCount++;
             guess = Console.ReadLine() ?? "Invalid guess";
-            clue = GenerateClue(target, guess);
+            clue = GenerateClue(Target, guess);
             Console.WriteLine(clue + "\n");
         }
     }
