@@ -61,8 +61,8 @@ public class MooGame
     public static bool AskToQuit()
     {
         Console.WriteLine("Play again? (Y/N)");
-        string answer = Console.ReadLine() ?? "n";
-        if (answer.Substring(0, 1).ToLower() == "n")
+        string? input = Console.ReadLine();
+        if ((!string.IsNullOrEmpty(input)) && (input[..1].ToLower() == "n"))
             return true;
         return false;
     }
