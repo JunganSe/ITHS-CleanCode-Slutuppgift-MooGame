@@ -1,7 +1,4 @@
-﻿using CleanCodeLaboration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using System.Text.Json;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text.RegularExpressions;
 
 namespace CleanCodeLaboration.Tests;
@@ -54,22 +51,5 @@ public class MooGameTests
     //    string expectedJson = System.Text.Json.JsonSerializer.Serialize(expected);
 
     //    Assert.AreEqual(expectedJson, actualJson);
-    //}
-
-    //[TestMethod()]
-    //public void StringifyPlayerDataTest()
-    //{
-    //    // NOTE: Test breaks if variable "format" is changed in testee.
-
-    //    var testData = new List<PlayerData>();
-    //    testData.Add(new PlayerData("abc", 3));
-    //    testData.Add(new PlayerData("adasda", 3));
-    //    testData[0].AddGameEntry(8);
-    //    testData[1].AddGameEntry(4);
-    //    testData[0].AddGameEntry(7);
-
-    //    string expected = "Player   Games  Average\nabc          3     6,00\nadasda       2     3,50";
-    //    string actual = MooGame.StringifyPlayerData(testData);
-    //    Assert.AreEqual(expected, actual);
     //}
 }
