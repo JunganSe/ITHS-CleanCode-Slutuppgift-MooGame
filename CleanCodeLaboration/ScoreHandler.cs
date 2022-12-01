@@ -38,6 +38,13 @@ public class ScoreHandler
         return playerData;
     }
 
+    public static void AddEntryToFile(string name, int guessCount, string path)
+    {
+        var streamWriter = new StreamWriter("result.txt", append: true);
+        streamWriter.WriteLine(name + Separator + guessCount);
+        streamWriter.Close();
+    }
+
     public static string StringifyPlayerData(List<PlayerData> playerData)
     {
         string format = "{0,-9}{1,5:D}{2,9:F2}";

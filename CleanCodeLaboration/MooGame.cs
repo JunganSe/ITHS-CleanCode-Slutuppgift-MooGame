@@ -52,11 +52,7 @@ public class MooGame
     public static void HandleHighScore()
     {
         Console.WriteLine("\nCorrect, it took " + GuessCount + " guesses.\n");
-
-        var streamWriter = new StreamWriter("result.txt", append: true);
-        streamWriter.WriteLine(PlayerName + _separator + GuessCount);
-        streamWriter.Close();
-
+        ScoreHandler.AddEntryToFile(PlayerName, GuessCount, "result.txt");
         ShowTopList();
     }
 
