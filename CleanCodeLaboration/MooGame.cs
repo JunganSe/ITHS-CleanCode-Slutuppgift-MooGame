@@ -4,42 +4,67 @@ public class MooGame
 {
     private static readonly string _separator = "#&#";
 
-    public void Run()
+    public static string PlayerName { get; set; } = "";
+    public static string Target { get; set; } = "";
+    public static bool Quit { get; set; } = false;
+    public static int GuessCount { get; set; } = 0;
+
+    public static void Run()
     {
-        bool playOn = true;
-        Console.WriteLine("Enter your user name:");
-        string playerName = Console.ReadLine() ?? "Invalid name";
-
-        while (playOn)
+        Initialize();
+        while (!Quit)
         {
-            string target = GenerateTargetDigits();
-
-            Console.WriteLine("New game!");
-            Console.WriteLine($"For practice, number is: {target}\n"); // Used for practice.
-
-            string guess = Console.ReadLine() ?? "Invalid guess";
-
-            int numberOfGuesses = 1;
-            string clue = GenerateClue(target, guess);
-            Console.WriteLine(clue + "\n");
-            while (clue != "BBBB,")
-            {
-                numberOfGuesses++;
-                guess = Console.ReadLine() ?? "Invalid guess";
-                clue = GenerateClue(target, guess);
-                Console.WriteLine(clue + "\n");
-            }
-
-            var streamWriter = new StreamWriter("result.txt", append: true);
-            streamWriter.WriteLine(playerName + _separator + numberOfGuesses);
-            streamWriter.Close();
-            ShowTopList();
-
-            Console.WriteLine("\nCorrect, it took " + numberOfGuesses + " guesses\nContinue?");
-            string answer = Console.ReadLine() ?? "Invalid answer";
-            if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
-                playOn = false;
+            MainLoop();
+            HandleHighScore();
+            Quit = AskToQuit();
         }
+    }
+
+    public static void Initialize()
+    {
+        Console.WriteLine("Enter your user name:");
+        PlayerName = Console.ReadLine() ?? "Invalid name";
+    }
+
+    public static void MainLoop()
+    {
+        string target = GenerateTargetDigits();
+
+        Console.WriteLine("New game!");
+        Console.WriteLine($"For practice, number is: {target}\n"); // Used for practice.
+
+        string guess = Console.ReadLine() ?? "Invalid guess";
+
+        GuessCount = 1;
+        string clue = GenerateClue(target, guess);
+        Console.WriteLine(clue + "\n");
+        while (clue != "BBBB,")
+        {
+            GuessCount++;
+            guess = Console.ReadLine() ?? "Invalid guess";
+            clue = GenerateClue(target, guess);
+            Console.WriteLine(clue + "\n");
+        }
+    }
+
+    public static void HandleHighScore()
+    {
+        Console.WriteLine("\nCorrect, it took " + GuessCount + " guesses.\n");
+
+        var streamWriter = new StreamWriter("result.txt", append: true);
+        streamWriter.WriteLine(PlayerName + _separator + GuessCount);
+        streamWriter.Close();
+
+        ShowTopList();
+    }
+
+    public static bool AskToQuit()
+    {
+        Console.WriteLine("Play again? (Y/N)");
+        string answer = Console.ReadLine() ?? "n";
+        if (answer.Substring(0, 1).ToLower() == "n")
+            return true;
+        return false;
     }
 
     public static string GenerateTargetDigits()
@@ -66,7 +91,7 @@ public class MooGame
             if (target.Contains(guess[i]))
             {
                 if (guess[i] == target[i])
-                    correct+= "B";
+                    correct += "B";
                 else
                     close += "C";
             }

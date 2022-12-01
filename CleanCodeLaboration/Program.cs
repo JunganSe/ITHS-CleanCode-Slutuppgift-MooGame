@@ -5,7 +5,7 @@ class MainClass
 
     public static void Main(string[] args)
     {
-        new MooGame().Run();
+        MooGame.Run();
     }
     
 }
