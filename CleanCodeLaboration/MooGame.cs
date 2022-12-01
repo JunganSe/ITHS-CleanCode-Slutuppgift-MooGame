@@ -2,9 +2,9 @@
 
 public class MooGame
 {
-    private static readonly string _separator = "#&#";
     private static readonly char _correctLetter = 'B';
     private static readonly char _closeLetter = 'C';
+    private static readonly string _scoreFileName = "MooGameScores.txt";
 
     public static string PlayerName { get; set; } = "";
     public static string Target { get; set; } = "";
@@ -50,21 +50,6 @@ public class MooGame
         }
     }
 
-    public static void HandleHighScore()
-    {
-        ScoreHandler.AddEntryToFile(PlayerName, GuessCount, "result.txt");
-        ShowTopList();
-    }
-
-    public static bool AskToQuit()
-    {
-        Console.WriteLine("Play again? (Y/N)");
-        string? input = Console.ReadLine();
-        if ((!string.IsNullOrEmpty(input)) && (input[..1].ToLower() == "n"))
-            return true;
-        return false;
-    }
-
     public static string GenerateTargetDigits()
     {
         var random = new Random();
@@ -97,11 +82,26 @@ public class MooGame
         return $"{correct},{close}";
     }
 
+    public static void HandleHighScore()
+    {
+        ScoreHandler.AddEntryToFile(PlayerName, GuessCount, _scoreFileName);
+        ShowTopList();
+    }
+
     public static void ShowTopList()
     {
-        List<PlayerData> playerData = ScoreHandler.GetPlayerDataFromFile("result.txt");
+        List<PlayerData> playerData = ScoreHandler.GetPlayerDataFromFile(_scoreFileName);
         playerData = playerData.OrderBy(pd => pd.Average).ToList();
         string output = ScoreHandler.StringifyPlayerData(playerData);
         Console.WriteLine(output);
+    }
+
+    public static bool AskToQuit()
+    {
+        Console.WriteLine("Play again? (Y/N)");
+        string? input = Console.ReadLine();
+        if ((!string.IsNullOrEmpty(input)) && (input[..1].ToLower() == "n"))
+            return true;
+        return false;
     }
 }
