@@ -7,39 +7,38 @@ public class MooGame
     public void Run()
     {
         bool playOn = true;
-        Console.WriteLine("Enter your user name:\n");
-        string name = Console.ReadLine();
+        Console.WriteLine("Enter your user name:");
+        string playerName = Console.ReadLine() ?? "Invalid name";
 
         while (playOn)
         {
-            string goal = GenerateTargetDigits();
+            string target = GenerateTargetDigits();
 
-            Console.WriteLine("New game:\n");
-            //comment out or remove next line to play real games!
-            Console.WriteLine("For practice, number is: " + goal + "\n");
-            string guess = Console.ReadLine();
+            Console.WriteLine("New game!");
+            Console.WriteLine($"For practice, number is: {target}\n"); // Used for practice.
 
-            int nGuess = 1;
-            string bbcc = GenerateClue(goal, guess);
-            Console.WriteLine(bbcc + "\n");
-            while (bbcc != "BBBB,")
+            string guess = Console.ReadLine() ?? "Invalid guess";
+
+            int numberOfGuesses = 1;
+            string clue = GenerateClue(target, guess);
+            Console.WriteLine(clue + "\n");
+            while (clue != "BBBB,")
             {
-                nGuess++;
-                guess = Console.ReadLine();
-                Console.WriteLine(guess + "\n");
-                bbcc = GenerateClue(goal, guess);
-                Console.WriteLine(bbcc + "\n");
+                numberOfGuesses++;
+                guess = Console.ReadLine() ?? "Invalid guess";
+                clue = GenerateClue(target, guess);
+                Console.WriteLine(clue + "\n");
             }
-            StreamWriter output = new StreamWriter("result.txt", append: true);
-            output.WriteLine(name + "#&#" + nGuess);
-            output.Close();
+
+            var streamWriter = new StreamWriter("result.txt", append: true);
+            streamWriter.WriteLine(playerName + _separator + numberOfGuesses);
+            streamWriter.Close();
             ShowTopList();
-            Console.WriteLine("Correct, it took " + nGuess + " guesses\nContinue?");
-            string answer = Console.ReadLine();
+
+            Console.WriteLine("\nCorrect, it took " + numberOfGuesses + " guesses\nContinue?");
+            string answer = Console.ReadLine() ?? "Invalid answer";
             if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
-            {
                 playOn = false;
-            }
         }
     }
 
