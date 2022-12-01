@@ -40,7 +40,7 @@ public class ScoreHandler
 
     public static void AddEntryToFile(string name, int guessCount, string path)
     {
-        var streamWriter = new StreamWriter("result.txt", append: true);
+        var streamWriter = new StreamWriter(path, append: true);
         streamWriter.WriteLine(name + Separator + guessCount);
         streamWriter.Close();
     }
