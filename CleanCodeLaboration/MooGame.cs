@@ -5,6 +5,7 @@ public class MooGame
     private static readonly char _correctLetter = 'B';
     private static readonly char _closeLetter = 'C';
     private static readonly string _scoreFileName = "MooGameScores.txt";
+    private static readonly string _correctClue = $"{new string(_correctLetter, 4)},";
 
     public static string PlayerName { get; set; } = "";
     public static string Target { get; set; } = "";
@@ -17,7 +18,7 @@ public class MooGame
         while (!Quit)
         {
             MainLoop();
-            Console.WriteLine("\nCorrect, it took " + GuessCount + " guesses.\n");
+            Console.WriteLine("Correct, it took " + GuessCount + " guesses.\n");
             HandleHighScore();
             Quit = AskToQuit();
         }
@@ -31,23 +32,21 @@ public class MooGame
 
     public static void MainLoop()
     {
+        Console.WriteLine("New game!\n");
         string target = GenerateTargetDigits();
-
-        Console.WriteLine("New game!");
         Console.WriteLine($"For practice, number is: {target}\n"); // Used for practice.
 
-        string guess = Console.ReadLine() ?? "Invalid guess";
-
-        GuessCount = 1;
-        string clue = GenerateClue(target, guess);
-        Console.WriteLine(clue + "\n");
-        while (clue != "BBBB,")
+        string? guess;
+        string clue;
+        do
         {
+            guess = Console.ReadLine();
             GuessCount++;
-            guess = Console.ReadLine() ?? "Invalid guess";
+            if (string.IsNullOrEmpty(guess))
+                guess = "";
             clue = GenerateClue(target, guess);
-            Console.WriteLine(clue + "\n");
-        }
+            Console.WriteLine($"{clue}\n");
+        } while (clue != _correctClue);
     }
 
     public static string GenerateTargetDigits()
