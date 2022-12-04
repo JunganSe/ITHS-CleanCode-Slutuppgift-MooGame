@@ -66,15 +66,14 @@ public class GameController
     private void HandleScore()
     {
         ScoreHandler.AddEntryToFile(PlayerName, GuessCount, _game.ScoreFileName);
-        ShowTopList();
+        _ui.PrintOutput(GetScores());
     }
 
-    private void ShowTopList()
+    private string GetScores()
     {
         List<PlayerData> playerData = ScoreHandler.GetPlayerDataFromFile(_game.ScoreFileName);
         playerData = playerData.OrderBy(pd => pd.GetAverageGuesses()).ToList();
-        string output = ScoreHandler.StringifyPlayerData(playerData);
-        _ui.PrintOutput(output);
+        return ScoreHandler.StringifyPlayerData(playerData);
     }
 
     private bool AskPlayAgain()
