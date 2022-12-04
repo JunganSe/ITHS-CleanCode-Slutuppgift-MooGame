@@ -72,7 +72,7 @@ public class GameController
     private void ShowTopList()
     {
         List<PlayerData> playerData = ScoreHandler.GetPlayerDataFromFile(_game.ScoreFileName);
-        playerData = playerData.OrderBy(pd => pd.Average).ToList();
+        playerData = playerData.OrderBy(pd => pd.GetAverageGuesses()).ToList();
         string output = ScoreHandler.StringifyPlayerData(playerData);
         _ui.PrintOutput(output);
     }
