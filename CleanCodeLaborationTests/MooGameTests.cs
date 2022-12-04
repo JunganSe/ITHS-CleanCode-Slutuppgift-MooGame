@@ -17,11 +17,11 @@ public class MooGameTests
 
     [TestMethod()]
     [DataRow("1234", "1234", "BBBB,")]
-    [DataRow("1243", "1234", "BB,CC")]
-    [DataRow("1256", "1234", "BB,")]
-    [DataRow("1123", "1234", "B,CCC")]
-    [DataRow("5678", "1234", ",")]
-    public void GenerateClueTest(string guess, string target, string expected)
+    [DataRow("1234", "1243", "BB,CC")]
+    [DataRow("1234", "1256", "BB,")]
+    [DataRow("1234", "1123", "B,CCC")]
+    [DataRow("1234", "5678", ",")]
+    public void GenerateClueTest(string target, string guess, string expected)
     {
         string actual = new MooGame().GenerateClue(target, guess);
         Assert.AreEqual(expected, actual);
