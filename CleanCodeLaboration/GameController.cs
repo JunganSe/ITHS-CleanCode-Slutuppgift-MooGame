@@ -42,18 +42,18 @@ public class GameController
         PlayerName = _ui.GetUserInput();
     }
 
-    private bool AskPlayAgain()
-    {
-        _ui.PrintOutput("Play again? (Y/N)");
-        string input = _ui.GetUserInput();
-        return !((!string.IsNullOrEmpty(input)) && (input[..1].ToLower() == "n")); // TODO: Gör mer läsbar.
-    }
-
     private void ShowTopList()
     {
         List<PlayerData> playerData = ScoreHandler.GetPlayerDataFromFile(_game.ScoreFileName);
         playerData = playerData.OrderBy(pd => pd.Average).ToList();
         string output = ScoreHandler.StringifyPlayerData(playerData);
         _ui.PrintOutput(output);
+    }
+
+    private bool AskPlayAgain()
+    {
+        _ui.PrintOutput("Play again? (Y/N)");
+        string input = _ui.GetUserInput();
+        return !((!string.IsNullOrEmpty(input)) && (input[..1].ToLower() == "n")); // TODO: Gör mer läsbar.
     }
 }
