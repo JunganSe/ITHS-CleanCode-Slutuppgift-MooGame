@@ -9,7 +9,7 @@ public class ScoreHandlerTests
     [TestMethod()]
     public void ParsePlayerDataTest()
     {
-        string separator = "#&#"; // NOTE: Make MooGame._separator public to avoid hard coding here?
+        string separator = ScoreHandler.Separator;
         var testData = new List<string>()
         {
             $"abc{separator}3",
