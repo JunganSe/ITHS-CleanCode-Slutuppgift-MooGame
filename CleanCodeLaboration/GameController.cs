@@ -5,7 +5,10 @@ public class GameController
     private readonly IGame _game;
     private readonly IUi _ui;
 
-    public string PlayerName { get; set; } = "Genius2000";
+    public string PlayerName { get; private set; } = "Genius2000";
+    public string Guess { get; private set; } = "";
+    public int GuessCount { get; private set; }
+    public string Target { get; private set; } = "";
 
     public GameController(IGame game, IUi ui)
     {
@@ -18,21 +21,7 @@ public class GameController
         AskPlayerName();
         do
         {
-            _ui.PrintOutput("New game, let's go!");
-            string target = _game.GenerateTargetDigits();
-            Console.WriteLine($"For practice, number is: {target}\n"); // Used for practice / testing.
-            string guess;
-            int guessCount = 0;
-            do
-            {
-                guess = _ui.GetUserInput();
-                guessCount++;
-                string clue = _game.GenerateClue(target, guess);
-                _ui.PrintOutput(clue);
-            } while (guess != target);
-            _ui.PrintOutput($"Correct! It took {guessCount} guesses.");
-            ScoreHandler.AddEntryToFile(PlayerName, guessCount, _game.ScoreFileName);
-            ShowTopList();
+            GameLoop();
         } while (AskPlayAgain());
     }
 
@@ -40,6 +29,44 @@ public class GameController
     {
         _ui.PrintOutput("Enter your name:");
         PlayerName = _ui.GetUserInput();
+    }
+
+    private void GameLoop()
+    {
+        InitializeRound();
+        do
+        {
+            MainLoop();
+        } while (Guess != Target);
+        Congratulate();
+        HandleScore();
+    }
+
+    private void InitializeRound()
+    {
+        _ui.PrintOutput($"New game, let's go {PlayerName}!");
+        Target = _game.GenerateTargetDigits();
+        _ui.PrintOutput($"For practice, number is: {Target}\n"); // Used for practice / testing.
+        GuessCount = 0;
+    }
+
+    private void MainLoop()
+    {
+        Guess = _ui.GetUserInput();
+        GuessCount++;
+        string clue = _game.GenerateClue(Target, Guess);
+        _ui.PrintOutput($"{clue}\n");
+    }
+
+    private void Congratulate()
+    {
+        _ui.PrintOutput($"Correct! It took {GuessCount} guesses. Have a medal.");
+    }
+
+    private void HandleScore()
+    {
+        ScoreHandler.AddEntryToFile(PlayerName, GuessCount, _game.ScoreFileName);
+        ShowTopList();
     }
 
     private void ShowTopList()
