@@ -4,15 +4,22 @@ public class ScoreHandler
 {
     public static string Separator { get; } = "#&#";
 
+    public static List<string> ReadTextFile(string path)
+    {
+        return File.ReadAllLines(path)?.ToList() ?? new();
+    }
+
+    public static void AddEntryToFile(string name, int guessCount, string path)
+    {
+        var streamWriter = new StreamWriter(path, append: true);
+        streamWriter.WriteLine(name + Separator + guessCount);
+        streamWriter.Close();
+    }
+
     public static List<PlayerData> GetPlayerDataFromFile(string path)
     {
         List<string> fileData = ReadTextFile(path);
         return ParsePlayerData(fileData);
-    }
-
-    public static List<string> ReadTextFile(string path)
-    {
-        return File.ReadAllLines(path)?.ToList() ?? new();
     }
 
     public static List<PlayerData> ParsePlayerData(List<string> fileData)
@@ -36,13 +43,6 @@ public class ScoreHandler
                 playerData.Add(new PlayerData(entry.Key, entry.Value));
         }
         return playerData;
-    }
-
-    public static void AddEntryToFile(string name, int guessCount, string path)
-    {
-        var streamWriter = new StreamWriter(path, append: true);
-        streamWriter.WriteLine(name + Separator + guessCount);
-        streamWriter.Close();
     }
 
     public static string StringifyPlayerData(List<PlayerData> playerData)
