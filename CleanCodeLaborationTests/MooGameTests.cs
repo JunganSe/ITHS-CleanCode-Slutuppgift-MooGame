@@ -9,7 +9,7 @@ public class MooGameTests
     [TestMethod()]
     public void GenerateTargetDigitsTest()
     {
-        string output = MooGame.GenerateTargetDigits();
+        string output = new MooGame().GenerateTargetDigits();
 
         Assert.IsTrue(output.Length == 4);
         StringAssert.Matches(output, new Regex("^(?:([0-9])(?!.*\\1))*$")); // Only unique digits.
@@ -23,7 +23,7 @@ public class MooGameTests
     [DataRow("5678", "1234", ",")]
     public void GenerateClueTest(string guess, string target, string expected)
     {
-        string actual = MooGame.GenerateClue(target, guess);
+        string actual = new MooGame().GenerateClue(target, guess);
         Assert.AreEqual(expected, actual);
     }
 }

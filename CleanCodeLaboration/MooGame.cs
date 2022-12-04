@@ -2,17 +2,27 @@
 
 public class MooGame
 {
-    private static readonly char _correctLetter = 'B';
-    private static readonly char _closeLetter = 'C';
-    private static readonly string _scoreFileName = "MooGameScores.txt";
-    private static readonly string _correctClue = $"{new string(_correctLetter, 4)},";
+    private readonly char _correctLetter;
+    private readonly char _closeLetter;
+    private readonly string _scoreFileName;
 
-    public static string PlayerName { get; set; } = "";
-    public static string Target { get; set; } = "";
-    public static bool Quit { get; set; } = false;
-    public static int GuessCount { get; set; } = 0;
+    public string PlayerName { get; set; }
+    public string Target { get; set; }
+    public bool Quit { get; set; }
+    public int GuessCount { get; set; }
 
-    public static void Run()
+    public MooGame()
+    {
+        _correctLetter = 'B';
+        _closeLetter = 'C';
+        _scoreFileName = "MooGameScores.txt";
+        PlayerName = "";
+        Target = "";
+        Quit = false;
+        GuessCount = 0;
+    }
+
+    public void Run()
     {
         Initialize();
         while (!Quit)
@@ -24,13 +34,13 @@ public class MooGame
         }
     }
 
-    public static void Initialize()
+    public void Initialize()
     {
         Console.WriteLine("Enter your user name:");
         PlayerName = Console.ReadLine() ?? "Invalid name";
     }
 
-    public static void MainLoop()
+    public void MainLoop()
     {
         Console.WriteLine("New game!\n");
         string target = GenerateTargetDigits();
@@ -38,6 +48,7 @@ public class MooGame
 
         string? guess;
         string clue;
+        string correctClue = $"{new string(_correctLetter, 4)},";
         do
         {
             guess = Console.ReadLine();
@@ -46,10 +57,10 @@ public class MooGame
                 guess = "";
             clue = GenerateClue(target, guess);
             Console.WriteLine($"{clue}\n");
-        } while (clue != _correctClue);
+        } while (clue != correctClue);
     }
 
-    public static string GenerateTargetDigits()
+    public string GenerateTargetDigits()
     {
         var random = new Random();
         string output = "";
@@ -62,7 +73,7 @@ public class MooGame
         return output;
     }
 
-    public static string GenerateClue(string target, string guess)
+    public string GenerateClue(string target, string guess)
     {
         string correct = "";
         string close = "";
@@ -81,13 +92,13 @@ public class MooGame
         return $"{correct},{close}";
     }
 
-    public static void HandleHighScore()
+    public void HandleHighScore()
     {
         ScoreHandler.AddEntryToFile(PlayerName, GuessCount, _scoreFileName);
         ShowTopList();
     }
 
-    public static void ShowTopList()
+    public void ShowTopList()
     {
         List<PlayerData> playerData = ScoreHandler.GetPlayerDataFromFile(_scoreFileName);
         playerData = playerData.OrderBy(pd => pd.Average).ToList();
@@ -95,7 +106,7 @@ public class MooGame
         Console.WriteLine(output);
     }
 
-    public static bool AskToQuit()
+    public bool AskToQuit()
     {
         Console.WriteLine("Play again? (Y/N)");
         string? input = Console.ReadLine();
