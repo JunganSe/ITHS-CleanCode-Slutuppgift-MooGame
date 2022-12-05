@@ -5,13 +5,13 @@ public class MooGame : IGame
     private readonly char _correctLetter;
     private readonly char _closeLetter;
 
-    public string GameName { get; init; }
+    public string Name { get; init; }
 
     public MooGame()
     {
         _correctLetter = 'B';
         _closeLetter = 'C';
-        GameName = "MooGame";
+        Name = "MooGame";
     }
 
     public string GenerateTargetDigits()
