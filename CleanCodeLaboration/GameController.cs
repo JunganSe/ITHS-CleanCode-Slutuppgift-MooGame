@@ -82,9 +82,6 @@ public class GameController
     {
         _ui.PrintOutput("Play again? (Y/N)");
         string input = _ui.GetUserInput();
-
-        bool hasCharacters = !string.IsNullOrEmpty(input);
-        bool saysNo = input[..1].ToLower() == "n";
-        return !(hasCharacters && saysNo);
+        return !((!string.IsNullOrEmpty(input)) && (input[..1].ToLower() == "n")); // TODO: Gör mer läsbar.
     }
 }
