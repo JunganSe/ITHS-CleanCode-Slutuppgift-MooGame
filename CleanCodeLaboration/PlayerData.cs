@@ -2,27 +2,27 @@
 
 public class PlayerData
 {
-    private int _totalGuesses;
+    private int _totalGuessCount;
 
     public string Name { get; private set; }
-    public int NumberOfGames { get; private set; }
+    public int GamesCount { get; private set; }
 
 
     public PlayerData(string name, int guesses)
     {
         Name = name;
-        NumberOfGames = 1;
-        _totalGuesses = guesses;
+        GamesCount = 1;
+        _totalGuessCount = guesses;
     }
 
     public void AddGameEntry(int guesses)
     {
-        _totalGuesses += guesses;
-        NumberOfGames++;
+        _totalGuessCount += guesses;
+        GamesCount++;
     }
 
     public double GetAverageGuesses()
     {
-        return (double)_totalGuesses / NumberOfGames;
+        return (double)_totalGuessCount / GamesCount;
     }
 }
