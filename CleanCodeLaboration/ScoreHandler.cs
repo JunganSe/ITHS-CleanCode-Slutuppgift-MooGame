@@ -2,27 +2,35 @@
 
 public class ScoreHandler
 {
-    public static string Separator { get; } = "#&#";
+    private readonly string _filePath;
 
-    public static List<string> ReadTextFile(string path)
+    public string Separator { get; init; }
+
+    public ScoreHandler(string gameName)
+    {
+        _filePath = $"{gameName}Scores.txt";
+        Separator = "#&#";
+    }
+
+    public List<string> ReadTextFile(string path)
     {
         return File.ReadAllLines(path)?.ToList() ?? new();
     }
 
-    public static void AddEntryToFile(string name, int guessCount, string path)
+    public void AddEntryToFile(string name, int guessCount)
     {
-        var streamWriter = new StreamWriter(path, append: true);
+        var streamWriter = new StreamWriter(_filePath, append: true);
         streamWriter.WriteLine(name + Separator + guessCount);
         streamWriter.Close();
     }
 
-    public static List<PlayerData> GetPlayerDataFromFile(string path)
+    public List<PlayerData> GetPlayerDataFromFile()
     {
-        List<string> fileData = ReadTextFile(path);
+        List<string> fileData = ReadTextFile(_filePath);
         return ParsePlayerData(fileData);
     }
 
-    public static List<PlayerData> ParsePlayerData(List<string> fileData)
+    public List<PlayerData> ParsePlayerData(List<string> fileData)
     {
         var entries = new List<KeyValuePair<string, int>>();
         foreach (string line in fileData)
@@ -45,7 +53,7 @@ public class ScoreHandler
         return playerData;
     }
 
-    public static string StringifyPlayerData(List<PlayerData> playerData)
+    public string StringifyPlayerData(List<PlayerData> playerData)
     {
         string format = "{0,-9}{1,5:D}{2,9:F2}";
         string output = string.Format(format, "Player", "Games", "Average");

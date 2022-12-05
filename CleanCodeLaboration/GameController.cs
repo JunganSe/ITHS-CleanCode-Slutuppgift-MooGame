@@ -4,16 +4,18 @@ public class GameController
 {
     private readonly IGame _game;
     private readonly IUi _ui;
+    private readonly ScoreHandler _scoreHandler;
 
     public string PlayerName { get; private set; } = "Genius2000";
     public string Guess { get; private set; } = "";
     public int GuessCount { get; private set; }
     public string Target { get; private set; } = "";
 
-    public GameController(IGame game, IUi ui)
+    public GameController(IGame game, IUi ui, ScoreHandler scoreHandler)
     {
         _game= game;
         _ui= ui;
+        _scoreHandler = scoreHandler;
     }
 
     public void Run()
@@ -65,15 +67,15 @@ public class GameController
 
     private void HandleScore()
     {
-        ScoreHandler.AddEntryToFile(PlayerName, GuessCount, _game.ScoreFileName);
+        _scoreHandler.AddEntryToFile(PlayerName, GuessCount);
         _ui.PrintOutput(GetScores());
     }
 
     private string GetScores()
     {
-        List<PlayerData> playerData = ScoreHandler.GetPlayerDataFromFile(_game.ScoreFileName);
+        List<PlayerData> playerData = _scoreHandler.GetPlayerDataFromFile();
         playerData = playerData.OrderBy(pd => pd.GetAverageGuesses()).ToList();
-        return ScoreHandler.StringifyPlayerData(playerData);
+        return _scoreHandler.StringifyPlayerData(playerData);
     }
 
     private bool AskPlayAgain()

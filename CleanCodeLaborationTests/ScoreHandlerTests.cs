@@ -5,11 +5,11 @@ namespace CleanCodeLaboration.Tests;
 [TestClass()]
 public class ScoreHandlerTests
 {
-
     [TestMethod()]
     public void ParsePlayerDataTest()
     {
-        string separator = ScoreHandler.Separator;
+        var scoreHandler = new ScoreHandler("");
+        string separator = scoreHandler.Separator;
         var testData = new List<string>()
         {
             $"abc{separator}3",
@@ -25,7 +25,7 @@ public class ScoreHandlerTests
         expected[1].AddGameEntry(4);
         expected[0].AddGameEntry(7);
 
-        var actual = ScoreHandler.ParsePlayerData(testData);
+        var actual = scoreHandler.ParsePlayerData(testData);
         string actualJson = System.Text.Json.JsonSerializer.Serialize(actual);
         string expectedJson = System.Text.Json.JsonSerializer.Serialize(expected);
 
@@ -36,7 +36,7 @@ public class ScoreHandlerTests
     public void StringifyPlayerDataTest()
     {
         // NOTE: Test breaks if variable "format" is changed in testee.
-
+        var scoreHandler = new ScoreHandler("");
         var testData = new List<PlayerData>();
         testData.Add(new PlayerData("abc", 3));
         testData.Add(new PlayerData("adasda", 3));
@@ -45,7 +45,7 @@ public class ScoreHandlerTests
         testData[0].AddGameEntry(7);
 
         string expected = "Player   Games  Average\nabc          3     6,00\nadasda       2     3,50";
-        string actual = ScoreHandler.StringifyPlayerData(testData);
+        string actual = scoreHandler.StringifyPlayerData(testData);
         Assert.AreEqual(expected, actual);
     }
 }

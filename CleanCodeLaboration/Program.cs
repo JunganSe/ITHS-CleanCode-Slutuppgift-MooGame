@@ -7,7 +7,8 @@ class Program
     {
         var game = new MooGame();
         var ui = new ConsoleUi();
-        var gameController = new GameController(game, ui);
+        var scoreHandler = new ScoreHandler(game.GameName);
+        var gameController = new GameController(game, ui, scoreHandler);
         gameController.Run();
     }
     
