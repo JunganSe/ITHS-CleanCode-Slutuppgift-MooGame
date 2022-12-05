@@ -3,14 +3,14 @@
 public class ScoreHandler
 {
     private readonly string _filePath;
-    private readonly string _stringifyFormat;
 
     public string Separator { get; init; }
+    public string StringifyFormat { get; init; }
 
     public ScoreHandler(string gameName)
     {
         _filePath = $"{gameName}Scores.txt";
-        _stringifyFormat = "{0,-9}{1,5:D}{2,9:F2}";
+        StringifyFormat = "{0,-9}{1,5:D}{2,9:F2}";
         Separator = "#&#";
     }
 
@@ -51,9 +51,9 @@ public class ScoreHandler
 
     public string StringifyPlayerData(List<PlayerData> playerData)
     {
-        string output = string.Format(_stringifyFormat, "Player", "Games", "Average");
+        string output = string.Format(StringifyFormat, "Player", "Games", "Average");
         foreach (var pd in playerData)
-            output += string.Format($"\n{_stringifyFormat}", pd.Name, pd.GamesCount, pd.GetAverageGuessCount());
+            output += string.Format($"\n{StringifyFormat}", pd.Name, pd.GamesCount, pd.GetAverageGuessCount());
         return output;
     }
 }

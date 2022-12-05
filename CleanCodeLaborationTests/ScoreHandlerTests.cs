@@ -35,7 +35,6 @@ public class ScoreHandlerTests
     [TestMethod()]
     public void StringifyPlayerDataTest()
     {
-        // NOTE: Test breaks if variable "format" is changed in testee.
         var scoreHandler = new ScoreHandler("");
         var testData = new List<PlayerData>();
         testData.Add(new PlayerData("abc", 3));
@@ -44,8 +43,11 @@ public class ScoreHandlerTests
         testData[1].AddGameEntry(4);
         testData[0].AddGameEntry(7);
 
-        string expected = "Player   Games  Average\nabc          3     6,00\nadasda       2     3,50";
+        string expected = string.Format(scoreHandler.StringifyFormat, "Player", "Games", "Average")
+            + "\n" + string.Format(scoreHandler.StringifyFormat, "abc", "3", "6,00")
+            + "\n" + string.Format(scoreHandler.StringifyFormat, "adasda", "2", "3,50");
         string actual = scoreHandler.StringifyPlayerData(testData);
+
         Assert.AreEqual(expected, actual);
     }
 }
