@@ -8,20 +8,20 @@ public class PlayerData
     public int GamesCount { get; private set; }
 
 
-    public PlayerData(string name, int guesses)
+    public PlayerData(string name, int guessCount)
     {
         Name = name;
         GamesCount = 1;
-        _totalGuessCount = guesses;
+        _totalGuessCount = guessCount;
     }
 
-    public void AddGameEntry(int guesses)
+    public void AddGameEntry(int guessCount)
     {
-        _totalGuessCount += guesses;
+        _totalGuessCount += guessCount;
         GamesCount++;
     }
 
-    public double GetAverageGuesses()
+    public double GetAverageGuessCount()
     {
         return (double)_totalGuessCount / GamesCount;
     }

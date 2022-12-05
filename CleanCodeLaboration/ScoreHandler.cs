@@ -53,7 +53,7 @@ public class ScoreHandler
     {
         string output = string.Format(_stringifyFormat, "Player", "Games", "Average");
         foreach (var pd in playerData)
-            output += string.Format($"\n{_stringifyFormat}", pd.Name, pd.GamesCount, pd.GetAverageGuesses());
+            output += string.Format($"\n{_stringifyFormat}", pd.Name, pd.GamesCount, pd.GetAverageGuessCount());
         return output;
     }
 }

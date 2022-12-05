@@ -74,7 +74,7 @@ public class GameController
     private string GetScores()
     {
         List<PlayerData> playerData = _scoreHandler.GetPlayerDataFromFile();
-        playerData = playerData.OrderBy(pd => pd.GetAverageGuesses()).ToList();
+        playerData = playerData.OrderBy(pd => pd.GetAverageGuessCount()).ToList();
         return _scoreHandler.StringifyPlayerData(playerData);
     }
 
