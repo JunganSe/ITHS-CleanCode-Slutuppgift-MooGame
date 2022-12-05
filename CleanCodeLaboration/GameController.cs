@@ -46,7 +46,7 @@ public class GameController
 
     private void InitializeRound()
     {
-        _ui.PrintOutput($"New game, let's go {PlayerName}!");
+        _ui.PrintOutput($"New game, let's go {PlayerName}!\n");
         Target = _game.GenerateTargetDigits();
         _ui.PrintOutput($"For practice, number is: {Target}\n"); // Used for practice / testing.
         GuessCount = 0;
@@ -62,13 +62,13 @@ public class GameController
 
     private void Congratulate()
     {
-        _ui.PrintOutput($"Correct! It took {GuessCount} guesses. Have a medal.");
+        _ui.PrintOutput($"Correct! It took {GuessCount} guesses. Have a medal.\n");
     }
 
     private void HandleScore()
     {
         _scoreHandler.AddEntryToFile(PlayerName, GuessCount);
-        _ui.PrintOutput(GetScores());
+        _ui.PrintOutput(GetScores() + "\n");
     }
 
     private string GetScores()
