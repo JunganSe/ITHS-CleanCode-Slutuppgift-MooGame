@@ -44,7 +44,7 @@ public class ScoreHandler
             if (index != -1)
                 playerData[index].AddGameEntry(guessCount);
             else
-                playerData.Add(new PlayerData(entry[0], guessCount));
+                playerData.Add(new PlayerData(name, guessCount));
         }
         return playerData;
     }
