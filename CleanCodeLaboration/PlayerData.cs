@@ -4,7 +4,7 @@ public class PlayerData
 {
     private int _totalGuessCount;
 
-    public string Name { get; private set; }
+    public string Name { get; init; }
     public int GamesCount { get; private set; }
 
 
