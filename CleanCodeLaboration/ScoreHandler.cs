@@ -34,23 +34,17 @@ public class ScoreHandler
 
     public List<PlayerData> ParsePlayerData(List<string> fileData)
     {
-        var entries = new List<KeyValuePair<string, int>>();
+        var playerData = new List<PlayerData>();
         foreach (string line in fileData)
         {
-            string[] nameAndGuesses = line.Split(Separator);
-            string name = nameAndGuesses[0];
-            int guesses = int.Parse(nameAndGuesses[1]);
-            entries.Add(new KeyValuePair<string, int>(name, guesses));
-        }
-
-        var playerData = new List<PlayerData>();
-        foreach (var entry in entries)
-        {
-            int index = playerData.FindIndex(pd => pd.Name == entry.Key);
-            if (index >= 0)
-                playerData[index].AddGameEntry(entry.Value);
+            string[] entry = line.Split(Separator);
+            string name = entry[0];
+            int guessCount = int.Parse(entry[1]);
+            int index = playerData.FindIndex(pd => pd.Name == name);
+            if (index != -1)
+                playerData[index].AddGameEntry(guessCount);
             else
-                playerData.Add(new PlayerData(entry.Key, entry.Value));
+                playerData.Add(new PlayerData(entry[0], guessCount));
         }
         return playerData;
     }
