@@ -16,8 +16,16 @@ public class MindGame : IGame
 
     public string GenerateTargetDigits()
     {
-        throw new NotImplementedException();
+        // Generates 4 random digits 1-6.
+        var random = new Random();
+        string output = "";
+        while (output.Length < 4)
+        {
+            output += (random.Next(6) + 1).ToString();
+        }
+        return output;
     }
+
     public string GenerateClue(string target, string guess)
     {
         throw new NotImplementedException();
