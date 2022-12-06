@@ -23,6 +23,7 @@ public class MooGameTests
     [DataRow("1234", "5678", ",")]
     public void GenerateClueTest(string target, string guess, string expected)
     {
+        // NOTE: Test breaks if _correctLetter or _closeLetter is changed in MooGame.
         string actual = new MooGame().GenerateClue(target, guess);
         Assert.AreEqual(expected, actual);
     }
