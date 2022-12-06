@@ -4,6 +4,7 @@ public class MindGame : IGame
 {
     private readonly char _correctLetter;
     private readonly char _closeLetter;
+    private readonly char _wrongLetter;
 
     public string Name { get; init; }
 
@@ -11,6 +12,7 @@ public class MindGame : IGame
     {
         _correctLetter = 'B';
         _closeLetter = 'C';
+        _wrongLetter = '.';
         Name = "MindGame";
     }
 
@@ -28,6 +30,19 @@ public class MindGame : IGame
 
     public string GenerateClue(string target, string guess)
     {
-        throw new NotImplementedException();
+        string output = "";
+        guess = guess.PadRight(target.Length);
+        for (int i = 0; i < target.Length; i++)
+        {
+            if (target.Contains(guess[i]))
+            {
+                output += (guess[i] == target[i])
+                    ? _correctLetter
+                    : _closeLetter;
+            }
+            else
+                output += _wrongLetter;
+        }
+        return output;
     }
 }
