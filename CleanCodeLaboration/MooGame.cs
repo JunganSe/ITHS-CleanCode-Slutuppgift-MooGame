@@ -16,6 +16,7 @@ public class MooGame : IGame
 
     public string GenerateTargetDigits()
     {
+        // Generates 4 unique digits.
         var random = new Random();
         string output = "";
         while (output.Length < 4)
