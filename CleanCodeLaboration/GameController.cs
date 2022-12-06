@@ -20,17 +20,17 @@ public class GameController
 
     public void Run()
     {
-        AskPlayerName();
+        PlayerName = AskPlayerName();
         do
         {
             GameLoop();
         } while (AskPlayAgain());
     }
 
-    private void AskPlayerName()
+    private string AskPlayerName()
     {
         _ui.PrintOutput("Enter your name:");
-        PlayerName = _ui.GetUserInput();
+        return _ui.GetUserInput();
     }
 
     private void GameLoop()
