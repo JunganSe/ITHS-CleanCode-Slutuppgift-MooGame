@@ -21,6 +21,7 @@ public class GameController
     public void Run()
     {
         PlayerName = AskPlayerName();
+        _ui.PrintOutput(_game.Instructions);
         do
         {
             GameLoop();

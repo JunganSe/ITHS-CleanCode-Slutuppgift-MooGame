@@ -7,6 +7,7 @@ public class MindGame : IGame
     private readonly char _wrongLetter;
 
     public string Name { get; init; }
+    public string Instructions { get; init; }
 
     public MindGame()
     {
@@ -14,6 +15,7 @@ public class MindGame : IGame
         _closeLetter = 'C';
         _wrongLetter = '.';
         Name = "MindGame";
+        Instructions = $"\nGuess the 4 digits!\nA clue will show for each digit you guessed:\n{_correctLetter}: Correct\n{_closeLetter}: Correct but in wrong place\n{_wrongLetter}: Wrong digit\n";
     }
 
     public string GenerateTargetDigits()
