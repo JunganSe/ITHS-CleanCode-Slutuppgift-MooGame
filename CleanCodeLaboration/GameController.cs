@@ -13,8 +13,8 @@ public class GameController
 
     public GameController(IGame game, IUi ui, ScoreHandler scoreHandler)
     {
-        _game= game;
-        _ui= ui;
+        _game = game;
+        _ui = ui;
         _scoreHandler = scoreHandler;
     }
 
@@ -46,9 +46,10 @@ public class GameController
 
     private void InitializeRound()
     {
-        _ui.PrintOutput($"New game, let's go {PlayerName}!\n");
         Target = _game.GenerateTargetDigits();
-        _ui.PrintOutput($"For practice, number is: {Target}\n"); // Used for practice / testing.
+        if (Ask("Cheat?"))
+            _ui.PrintOutput($"For practice, number is: {Target}\n");
+        _ui.PrintOutput($"New game, let's go {PlayerName}!\n");
         GuessCount = 0;
     }
 
