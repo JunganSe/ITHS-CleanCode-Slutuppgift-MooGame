@@ -24,7 +24,7 @@ public class GameController
         do
         {
             GameLoop();
-        } while (AskPlayAgain());
+        } while (Ask("Play again?"));
     }
 
     private string AskPlayerName()
@@ -78,9 +78,9 @@ public class GameController
         return _scoreHandler.StringifyPlayerData(playerData);
     }
 
-    private bool AskPlayAgain()
+    private bool Ask(string question)
     {
-        _ui.PrintOutput("Play again? (Y/N)");
+        _ui.PrintOutput($"{question} (Y/N)");
         string input = _ui.GetUserInput();
         return !((!string.IsNullOrEmpty(input)) && (input[..1].ToLower() == "n")); // TODO: Gör mer läsbar.
     }
