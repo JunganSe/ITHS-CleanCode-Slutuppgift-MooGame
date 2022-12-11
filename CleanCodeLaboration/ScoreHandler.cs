@@ -14,21 +14,15 @@ public class ScoreHandler
         Separator = "#&#";
     }
 
-    public List<string> ReadTextFile(string path)
-    {
-        return File.ReadAllLines(path)?.ToList() ?? new();
-    }
-
     public void AddEntryToFile(string name, int guessCount)
     {
-        var streamWriter = new StreamWriter(_filePath, append: true);
-        streamWriter.WriteLine(name + Separator + guessCount);
-        streamWriter.Close();
+        string content = name + Separator + guessCount;
+        FileHandler.AppendTextFile(_filePath, content);
     }
 
     public List<PlayerData> GetPlayerDataFromFile()
     {
-        List<string> fileData = ReadTextFile(_filePath);
+        var fileData = FileHandler.ReadTextFile(_filePath);
         return ParsePlayerData(fileData);
     }
 
