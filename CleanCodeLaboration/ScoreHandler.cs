@@ -14,10 +14,10 @@ public class ScoreHandler
         Separator = "#&#";
     }
 
-    public void AddEntryToFile(string name, int guessCount)
+    public void AddEntryToFile(List<string> content)
     {
-        string content = name + Separator + guessCount;
-        FileHandler.AppendTextFile(_filePath, content);
+        string line = string.Join(Separator, content);
+        FileHandler.AppendTextFile(_filePath, line);
     }
 
     public List<PlayerData> GetPlayerDataFromFile()

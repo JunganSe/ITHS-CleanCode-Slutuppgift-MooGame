@@ -69,7 +69,8 @@ public class GameController
 
     private void HandleScore()
     {
-        _scoreHandler.AddEntryToFile(PlayerName, GuessCount);
+        var entry = new List<string> { PlayerName, GuessCount.ToString() };
+        _scoreHandler.AddEntryToFile(entry);
         _ui.PrintOutput(GetScores() + "\n");
     }
 
