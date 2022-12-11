@@ -1,5 +1,4 @@
-﻿using CleanCodeLaboration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text.RegularExpressions;
 
 namespace CleanCodeLaboration.Tests;
