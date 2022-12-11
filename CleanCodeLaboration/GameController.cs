@@ -6,7 +6,7 @@ public class GameController
     private readonly IUi _ui;
     private readonly ScoreHandler _scoreHandler;
 
-    public string PlayerName { get; private set; } = "Genius2000";
+    public string PlayerName { get; private set; } = "";
     public string Guess { get; private set; } = "";
     public int GuessCount { get; private set; } = 0;
     public string Target { get; private set; } = "";
