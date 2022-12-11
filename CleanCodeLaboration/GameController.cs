@@ -28,7 +28,7 @@ public class GameController
         } while (Ask("Play again?"));
     }
 
-    private string AskPlayerName()
+    public string AskPlayerName()
     {
         _ui.PrintOutput("Enter your name:");
         return _ui.GetUserInput();
@@ -81,7 +81,7 @@ public class GameController
         return _scoreHandler.StringifyPlayerData(playerData);
     }
 
-    private bool Ask(string question)
+    public bool Ask(string question)
     {
         _ui.PrintOutput($"{question} (Y/N)");
         string input = _ui.GetUserInput();
