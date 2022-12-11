@@ -85,6 +85,7 @@ public class GameController
     {
         _ui.PrintOutput($"{question} (Y/N)");
         string input = _ui.GetUserInput();
-        return !((!string.IsNullOrEmpty(input)) && (input[..1].ToLower() == "n")); // TODO: Gör mer läsbar.
+        bool hasContent = !string.IsNullOrEmpty(input);
+        return !((hasContent) && (input[..1].ToLower() == "n"));
     }
 }
