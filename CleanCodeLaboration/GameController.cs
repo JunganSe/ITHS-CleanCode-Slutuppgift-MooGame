@@ -8,7 +8,7 @@ public class GameController
 
     public string PlayerName { get; private set; } = "Genius2000";
     public string Guess { get; private set; } = "";
-    public int GuessCount { get; private set; }
+    public int GuessCount { get; private set; } = 0;
     public string Target { get; private set; } = "";
 
     public GameController(IGame game, IUi ui, ScoreHandler scoreHandler)
