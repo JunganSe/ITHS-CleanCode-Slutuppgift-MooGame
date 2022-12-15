@@ -4,15 +4,15 @@ namespace CleanCodeLaborationTests;
 
 internal class MockUi : IUi
 {
-    private readonly string _answer;
+    private readonly string _fakeUserInput;
 
-    public MockUi(string answer)
+    public MockUi(string fakeUserInput)
     {
-        _answer = answer;
+        _fakeUserInput = fakeUserInput;
     }
     public string GetUserInput()
     {
-        return _answer;
+        return _fakeUserInput;
     }
 
     public void PrintOutput(string output)
