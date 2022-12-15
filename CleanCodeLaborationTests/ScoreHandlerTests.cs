@@ -5,11 +5,17 @@ namespace CleanCodeLaboration.Tests;
 [TestClass()]
 public class ScoreHandlerTests
 {
+    private ScoreHandler? _scoreHandler;
+
+    [TestInitialize()]
+    public void Initialize()
+    {
+        _scoreHandler = new ScoreHandler("");
+    }
+
     [TestMethod()]
     public void ParsePlayerDataTest()
     {
-        var scoreHandler = new ScoreHandler("");
-
         var expectedData = new List<PlayerData>();
         expectedData.Add(new PlayerData("abc", 3));
         expectedData.Add(new PlayerData("adasda", 3));
@@ -18,7 +24,7 @@ public class ScoreHandlerTests
         expectedData[0].AddGameEntry(7);
         string expectedJson = System.Text.Json.JsonSerializer.Serialize(expectedData);
 
-        string separator = scoreHandler.Separator;
+        string separator = _scoreHandler!.Separator;
         var testData = new List<string>()
         {
             $"abc{separator}3",
@@ -27,7 +33,7 @@ public class ScoreHandlerTests
             $"adasda{separator}4",
             $"abc{separator}7"
         };
-        var actualData = scoreHandler.ParsePlayerData(testData);
+        var actualData = _scoreHandler.ParsePlayerData(testData);
         string actualJson = System.Text.Json.JsonSerializer.Serialize(actualData);
 
         Assert.AreEqual(expectedJson, actualJson);
@@ -36,11 +42,9 @@ public class ScoreHandlerTests
     [TestMethod()]
     public void StringifyPlayerDataTest()
     {
-        var scoreHandler = new ScoreHandler("");
-
-        string expected = string.Format(scoreHandler.StringifyFormat, "Player", "Games", "Average")
-            + "\n" + string.Format(scoreHandler.StringifyFormat, "abc", "3", "6,00")
-            + "\n" + string.Format(scoreHandler.StringifyFormat, "adasda", "2", "3,50");
+        string expected = string.Format(_scoreHandler!.StringifyFormat, "Player", "Games", "Average")
+            + "\n" + string.Format(_scoreHandler.StringifyFormat, "abc", "3", "6,00")
+            + "\n" + string.Format(_scoreHandler.StringifyFormat, "adasda", "2", "3,50");
 
         var testData = new List<PlayerData>();
         testData.Add(new PlayerData("abc", 3));
@@ -48,7 +52,7 @@ public class ScoreHandlerTests
         testData[0].AddGameEntry(8);
         testData[1].AddGameEntry(4);
         testData[0].AddGameEntry(7);
-        string actual = scoreHandler.StringifyPlayerData(testData);
+        string actual = _scoreHandler.StringifyPlayerData(testData);
 
         Assert.AreEqual(expected, actual);
     }
