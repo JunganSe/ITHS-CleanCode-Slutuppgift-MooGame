@@ -37,11 +37,7 @@ public class MindGame : IGame
         for (int i = 0; i < target.Length; i++)
         {
             if (target.Contains(guess[i]))
-            {
-                output += (guess[i] == target[i])
-                    ? _correctLetter
-                    : _closeLetter;
-            }
+                output += (guess[i] == target[i]) ? _correctLetter : _closeLetter;
             else
                 output += _wrongLetter;
         }
